@@ -15,7 +15,7 @@
         --secondary: #ffffff;
         --primary-700: #53101a;
         --primary-300: #8e2231;
-        /* --bg: #ffffff; */
+        --bg: #ffffff;
         --surface: #ffffff;
         --border: #e6e6ea;
         --text: #1c1c1f;
@@ -184,15 +184,39 @@
     <section class="section" id="features">
       <h2>Our Services</h2>
       <div class="features">
-        <div class="feature-card">
-          <h3>Products</h3>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio,
-            suscipit aspernatur, aliquam doloremque laboriosam dolor esse eaque,
-            inventore et eius ad consectetur delectus modi necessitatibus nam
-            vitae quis possimus illum?
+        <a
+          class="feature-card"
+          href="product.html"
+          style="
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+            border-color: #d8d8dc;
+            transition: box-shadow 0.2s ease, transform 0.06s ease;
+          "
+        >
+          <h3>
+            Products
+            <span
+              aria-hidden="true"
+              style="
+                margin-left: auto;
+                font-size: 1.1rem;
+                color: var(--primary);
+              "
+              >→</span
+            >
+          </h3>
+          <p style="color: #4a4a50">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
+            eveniet optio nemo eum aspernatur iusto quibusdam et porro a id
+            provident voluptatum possimus maiores ea omnis vitae, voluptates
+            beatae molestiae. Eius ea dolor ipsum cumque in perferendis
+            provident excepturi mollitia quod, dolores inventore minima
+            distinctio rem iure fuga facere quia quisquam! Facilis inventore ut
+            reprehenderit!
           </p>
-        </div>
+        </a>
         <div class="feature-card">
           <h3>Services</h3>
           <p>
