@@ -141,60 +141,186 @@
         <a href="product.html" style="color: var(--primary); opacity: 1"
           >Products</a
         >
-        <a href="index.html#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </header>
 
     <div class="page-title">
       <h1>Our Products</h1>
     </div>
-    <p class="subtitle">A showcase of our available product images.</p>
 
-    <section class="gallery" aria-label="Product images gallery">
-      <!-- Each image opens the full-size version in a new tab -->
+    <!-- Tabs navigation -->
+    <div
+      style="
+        padding: 0 8% 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <button
+        id="tab-domestic"
+        class="tab active"
+        onclick="showTab('domestic')"
+        style="
+          padding: 10px 160px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: var(--primary);
+          color: white;
+          cursor: pointer;
+          font-weight: bolder;
+        "
+      >
+        Domestic
+      </button>
+      <button
+        id="tab-industrial"
+        class="tab"
+        onclick="showTab('industrial')"
+        style="
+          padding: 10px 160px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: white;
+          color: #1c1c1f;
+          cursor: pointer;
+          font-weight: bolder;
+        "
+      >
+        Industrial
+      </button>
+    </div>
+
+    <!-- Domestic gallery -->
+    <section
+      id="gallery-domestic"
+      class="gallery"
+      aria-label="Domestic product images"
+    >
       <figure class="card">
         <a href="Part1.png" target="_blank" rel="noopener">
-          <img src="Part1.png" alt="Product image Part1" loading="lazy" />
-          <figcaption class="caption">Part1</figcaption>
+          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
+          <figcaption class="caption">Part1 (Domestic)</figcaption>
         </a>
       </figure>
 
       <figure class="card">
         <a href="Part4.png" target="_blank" rel="noopener">
-          <img src="Part4.png" alt="Product image Part4" loading="lazy" />
-          <figcaption class="caption">Part4</figcaption>
+          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
+          <figcaption class="caption">Part4 (Domestic)</figcaption>
         </a>
       </figure>
 
       <figure class="card">
         <a href="Part5.png" target="_blank" rel="noopener">
-          <img src="Part5.png" alt="Product image Part5" loading="lazy" />
-          <figcaption class="caption">Part5</figcaption>
+          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
+          <figcaption class="caption">Part5 (Domestic)</figcaption>
         </a>
       </figure>
-
       <figure class="card">
         <a href="Part6.png" target="_blank" rel="noopener">
-          <img src="Part6.png" alt="Product image Part6" loading="lazy" />
-          <figcaption class="caption">Part6</figcaption>
+          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
+          <figcaption class="caption">Part6 (Domestic)</figcaption>
         </a>
       </figure>
 
       <figure class="card">
         <a href="Part7.png" target="_blank" rel="noopener">
-          <img src="Part7.png" alt="Product image Part7" loading="lazy" />
-          <figcaption class="caption">Part7</figcaption>
+          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
+          <figcaption class="caption">Part7 (Domestic)</figcaption>
         </a>
       </figure>
 
       <figure class="card">
         <a href="Part8.png" target="_blank" rel="noopener">
-          <img src="Part8.png" alt="Product image Part8" loading="lazy" />
-          <figcaption class="caption">Part8</figcaption>
+          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
+          <figcaption class="caption">Part8 (Domestic)</figcaption>
         </a>
       </figure>
     </section>
 
-    <footer>© 2025 GVK ENTERPRISES. All rights reserved.</footer>
+    <!-- Industrial gallery -->
+    <section
+      id="gallery-industrial"
+      class="gallery"
+      aria-label="Industrial product images"
+      style="display: none"
+    >
+      <figure class="card">
+        <a href="Part1.png" target="_blank" rel="noopener">
+          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
+          <figcaption class="caption">Part1 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part4.png" target="_blank" rel="noopener">
+          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
+          <figcaption class="caption">Part4 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part5.png" target="_blank" rel="noopener">
+          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
+          <figcaption class="caption">Part5 (Industrial)</figcaption>
+        </a>
+      </figure>
+      <figure class="card">
+        <a href="Part6.png" target="_blank" rel="noopener">
+          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
+          <figcaption class="caption">Part6 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part7.png" target="_blank" rel="noopener">
+          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
+          <figcaption class="caption">Part7 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part8.png" target="_blank" rel="noopener">
+          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
+          <figcaption class="caption">Part8 (Industrial)</figcaption>
+        </a>
+      </figure>
+    </section>
+
+    <footer>© 2025 GVKALAIVANI ENTERPRISES. All rights reserved.</footer>
+
+    <script>
+      function showTab(which) {
+        const domBtn = document.getElementById("tab-domestic");
+        const indBtn = document.getElementById("tab-industrial");
+        const dom = document.getElementById("gallery-domestic");
+        const ind = document.getElementById("gallery-industrial");
+
+        const activeStyles = {
+          background: "var(--primary)",
+          color: "#fff",
+        };
+        const inactiveStyles = {
+          background: "#fff",
+          color: "#1c1c1f",
+        };
+
+        if (which === "domestic") {
+          dom.style.display = "";
+          ind.style.display = "none";
+          Object.assign(domBtn.style, activeStyles);
+          Object.assign(indBtn.style, inactiveStyles);
+        } else {
+          dom.style.display = "none";
+          ind.style.display = "";
+          Object.assign(indBtn.style, activeStyles);
+          Object.assign(domBtn.style, inactiveStyles);
+        }
+      }
+    </script>
   </body>
 </html>
