@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Playfair+Display:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Products – GVK ENTERPRISES</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">GVK</div>
+      <nav>
+        <a href="index.html#home">Home</a>
+        <a href="#Product" style="color: var(--primary); opacity: 1"
+          >Products</a
+        >
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <div class="page-title">
+      <h1>Our Products</h1>
+    </div>
+
+    <!-- Tabs navigation -->
+    <div class="tabs">
+      <button
+        id="tab-domestic"
+        class="tab-btn active"
+        onclick="showTab('domestic')"
+      >
+        Domestic
+      </button>
+      <button
+        id="tab-industrial"
+        class="tab-btn"
+        onclick="showTab('industrial')"
+      >
+        Industrial
+      </button>
+    </div>
+
+    <!-- Domestic gallery -->
+    <section
+      id="gallery-domestic"
+      class="gallery"
+      aria-label="Domestic product images"
+    >
+      <figure class="card">
+        <a href="Part1.png" target="_blank" rel="noopener">
+          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
+          <figcaption class="caption">Part1 (Domestic)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part4.png" target="_blank" rel="noopener">
+          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
+          <figcaption class="caption">Part4 (Domestic)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part5.png" target="_blank" rel="noopener">
+          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
+          <figcaption class="caption">Part5 (Domestic)</figcaption>
+        </a>
+      </figure>
+      <figure class="card">
+        <a href="Part6.png" target="_blank" rel="noopener">
+          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
+          <figcaption class="caption">Part6 (Domestic)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part7.png" target="_blank" rel="noopener">
+          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
+          <figcaption class="caption">Part7 (Domestic)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part8.png" target="_blank" rel="noopener">
+          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
+          <figcaption class="caption">Part8 (Domestic)</figcaption>
+        </a>
+      </figure>
+    </section>
+
+    <!-- Industrial gallery -->
+    <section
+      id="gallery-industrial"
+      class="gallery"
+      aria-label="Industrial product images"
+      style="display: none"
+    >
+      <figure class="card">
+        <a href="Part1.png" target="_blank" rel="noopener">
+          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
+          <figcaption class="caption">Part1 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part4.png" target="_blank" rel="noopener">
+          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
+          <figcaption class="caption">Part4 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part5.png" target="_blank" rel="noopener">
+          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
+          <figcaption class="caption">Part5 (Industrial)</figcaption>
+        </a>
+      </figure>
+      <figure class="card">
+        <a href="Part6.png" target="_blank" rel="noopener">
+          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
+          <figcaption class="caption">Part6 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part7.png" target="_blank" rel="noopener">
+          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
+          <figcaption class="caption">Part7 (Industrial)</figcaption>
+        </a>
+      </figure>
+
+      <figure class="card">
+        <a href="Part8.png" target="_blank" rel="noopener">
+          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
+          <figcaption class="caption">Part8 (Industrial)</figcaption>
+        </a>
+      </figure>
+    </section>
+
+    <footer>© 2025 GVKALAIVANI ENTERPRISES. All rights reserved.</footer>
+
+    <script>
+      function showTab(which) {
+        const domBtn = document.getElementById("tab-domestic");
+        const indBtn = document.getElementById("tab-industrial");
+        const dom = document.getElementById("gallery-domestic");
+        const ind = document.getElementById("gallery-industrial");
+
+        if (which === "domestic") {
+          dom.style.display = "";
+          ind.style.display = "none";
+          domBtn.classList.add("active");
+          indBtn.classList.remove("active");
+        } else {
+          dom.style.display = "none";
+          ind.style.display = "";
+          indBtn.classList.add("active");
+          domBtn.classList.remove("active");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,175 +8,15 @@
       rel="stylesheet"
     />
     <title>Products – GVK ENTERPRISES</title>
-    <style>
-      :root {
-        --primary: #6a0f1c;
-        --secondary: #ffffff;
-        --primary-700: #53101a;
-        --primary-300: #8e2231;
-        --bg: #ffffff;
-        --surface: #ffffff;
-        --border: #e6e6ea;
-        --text: #1c1c1f;
-        --muted: #5b5b61;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
-          "Helvetica Neue", sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 8%;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: saturate(140%) blur(6px);
-        border-bottom: 1px solid var(--border);
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-      }
-
-      header .logo {
-        font-family: Didot, Playfair Display;
-        letter-spacing: 0.5px;
-        font-size: 2.5rem;
-        font-weight: 600;
-        color: var(--primary);
-      }
-
-      header nav a {
-        margin-left: 22px;
-        color: #4a4a50;
-        opacity: 0.8;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s ease, opacity 0.2s ease;
-      }
-
-      header nav a:hover {
-        color: var(--primary);
-        opacity: 1;
-      }
-
-      .page-title {
-        padding: 50px 8% 10px;
-      }
-
-      .page-title h1 {
-        font-size: clamp(1.8rem, 5vw, 2.6rem);
-        margin: 0 0 10px;
-      }
-
-      .subtitle {
-        color: #4a4a50;
-        margin: 0 8% 28px;
-      }
-
-      .gallery {
-        padding: 0 8% 60px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 18px;
-      }
-
-      .card {
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: var(--surface);
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-        transition: transform 0.1s ease, box-shadow 0.2s ease;
-      }
-      .card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      }
-
-      .card a {
-        display: block;
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .card img {
-        display: block;
-        width: 100%;
-        height: 220px;
-        object-fit: contain;
-        background: #fafafa;
-      }
-
-      .caption {
-        padding: 10px 12px;
-        font-size: 0.95rem;
-        color: #333;
-        border-top: 1px solid var(--border);
-      }
-
-      footer {
-        padding: 26px 8%;
-        text-align: center;
-        background: var(--surface);
-        border-top: 1px solid var(--border);
-        font-size: 0.88rem;
-        color: #6b6b72;
-      }
-
-      /* Responsive tabs */
-      .tabs {
-        padding: 0 8% 18px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .tab-btn {
-        appearance: none;
-        border: 1px solid var(--border);
-        background: #fff;
-        color: #1c1c1f;
-        cursor: pointer;
-        border-radius: 999px;
-        padding: 10px 20px;
-        font-weight: 700;
-        line-height: 1.1;
-        min-width: 140px;
-        max-width: 100%;
-        text-align: center;
-        transition: background .2s ease, color .2s ease, border-color .2s ease, transform .06s ease;
-      }
-      .tab-btn:active { transform: translateY(1px); }
-      .tab-btn.active {
-        background: var(--primary);
-        color: #fff;
-        border-color: color-mix(in oklab, var(--primary) 70%, #000 0%);
-      }
-      @media (max-width: 640px) {
-        .tab-btn { flex: 1 1 46%; min-width: 0; padding: 10px 12px; }
-      }
-      @media (max-width: 400px) {
-        .tab-btn { flex: 1 1 100%; }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <style></style>
   </head>
   <body>
     <header>
       <div class="logo">GVK</div>
       <nav>
         <a href="index.html#home">Home</a>
-        <a href="product.html" style="color: var(--primary); opacity: 1"
+        <a href="#Product" style="color: var(--primary); opacity: 1"
           >Products</a
         >
         <a href="contact.html">Contact</a>
@@ -189,128 +29,65 @@
 
     <!-- Tabs navigation -->
     <div class="tabs">
-      <button id="tab-domestic" class="tab-btn active" onclick="showTab('domestic')">Domestic</button>
-      <button id="tab-industrial" class="tab-btn" onclick="showTab('industrial')">Industrial</button>
+      <button id="tab-one" class="tab-btn active" onclick="showTab('pageone')">
+        S.V.Bro's Tours&Travels
+      </button>
+      <button id="tab-two" class="tab-btn" onclick="showTab('pagetwo')">
+        Stepup Academy Trichy
+      </button>
     </div>
 
     <!-- Domestic gallery -->
     <section
-      id="gallery-domestic"
-      class="gallery"
-      aria-label="Domestic product images"
-    >
-      <figure class="card">
-        <a href="Part1.png" target="_blank" rel="noopener">
-          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
-          <figcaption class="caption">Part1 (Domestic)</figcaption>
-        </a>
-      </figure>
+      id="page-one"
+      class="one"
+      aria-label="S.V.Bro's Tours&Travels"
+    ></section>
 
-      <figure class="card">
-        <a href="Part4.png" target="_blank" rel="noopener">
-          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
-          <figcaption class="caption">Part4 (Domestic)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part5.png" target="_blank" rel="noopener">
-          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
-          <figcaption class="caption">Part5 (Domestic)</figcaption>
-        </a>
-      </figure>
-      <figure class="card">
-        <a href="Part6.png" target="_blank" rel="noopener">
-          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
-          <figcaption class="caption">Part6 (Domestic)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part7.png" target="_blank" rel="noopener">
-          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
-          <figcaption class="caption">Part7 (Domestic)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part8.png" target="_blank" rel="noopener">
-          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
-          <figcaption class="caption">Part8 (Domestic)</figcaption>
-        </a>
-      </figure>
-    </section>
-
-    <!-- Industrial gallery -->
     <section
-      id="gallery-industrial"
-      class="gallery"
-      aria-label="Industrial product images"
-      style="display: none"
-    >
-      <figure class="card">
-        <a href="Part1.png" target="_blank" rel="noopener">
-          <img src="Part1.png" alt="Domestic product Part1" loading="lazy" />
-          <figcaption class="caption">Part1 (Industrial)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part4.png" target="_blank" rel="noopener">
-          <img src="Part4.png" alt="Domestic product Part4" loading="lazy" />
-          <figcaption class="caption">Part4 (Industrial)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part5.png" target="_blank" rel="noopener">
-          <img src="Part5.png" alt="Domestic product Part5" loading="lazy" />
-          <figcaption class="caption">Part5 (Industrial)</figcaption>
-        </a>
-      </figure>
-      <figure class="card">
-        <a href="Part6.png" target="_blank" rel="noopener">
-          <img src="Part6.png" alt="Industrial product Part6" loading="lazy" />
-          <figcaption class="caption">Part6 (Industrial)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part7.png" target="_blank" rel="noopener">
-          <img src="Part7.png" alt="Industrial product Part7" loading="lazy" />
-          <figcaption class="caption">Part7 (Industrial)</figcaption>
-        </a>
-      </figure>
-
-      <figure class="card">
-        <a href="Part8.png" target="_blank" rel="noopener">
-          <img src="Part8.png" alt="Industrial product Part8" loading="lazy" />
-          <figcaption class="caption">Part8 (Industrial)</figcaption>
-        </a>
-      </figure>
-    </section>
+      id="page-two"
+      class="two"
+      aria-label="Stepup Academy Trichy"
+    ></section>
 
     <footer>© 2025 GVKALAIVANI ENTERPRISES. All rights reserved.</footer>
 
     <script>
       function showTab(which) {
-        const domBtn = document.getElementById('tab-domestic');
-        const indBtn = document.getElementById('tab-industrial');
-        const dom = document.getElementById('gallery-domestic');
-        const ind = document.getElementById('gallery-industrial');
+        const dom = document.getElementById("page-one");
+        const ind = document.getElementById("page-two");
 
-        if (which === 'domestic') {
-          dom.style.display = '';
-          ind.style.display = 'none';
-          domBtn.classList.add('active');
-          indBtn.classList.remove('active');
-        } else {
-          dom.style.display = 'none';
-          ind.style.display = '';
-          indBtn.classList.add('active');
-          domBtn.classList.remove('active');
+        if (which === "pageone") {
+          // Load format.html into page-one
+          fetch("format.html")
+            .then((response) => response.text())
+            .then((html) => {
+              dom.innerHTML = html;
+            });
+
+          dom.style.display = "block";
+          ind.style.display = "none";
+          document.getElementById("tab-one").classList.add("active");
+          document.getElementById("tab-two").classList.remove("active");
+        } else if (which === "pagetwo") {
+          // Load stepup.html into page-two
+          fetch("stepup.html")
+            .then((response) => response.text())
+            .then((html) => {
+              ind.innerHTML = html;
+            });
+
+          dom.style.display = "none";
+          ind.style.display = "block";
+          document.getElementById("tab-two").classList.add("active");
+          document.getElementById("tab-one").classList.remove("active");
         }
       }
+
+      // ✅ Default load: show S.V.Bro's tab immediately
+      document.addEventListener("DOMContentLoaded", () => {
+        showTab("pageone");
+      });
     </script>
   </body>
 </html>
