@@ -7,7 +7,7 @@
       body {
         font-family: Arial, sans-serif;
         background: #f5f5f5;
-        padding: 20px;
+        margin: 0;
       }
       h2 {
         margin-bottom: 10px;
@@ -15,332 +15,78 @@
       .container {
         display: flex;
         width: 100%;
-        gap: 20px;
-        align-items: flex-start;
         max-width: none;
         box-sizing: border-box;
-        background-color: #4338ca;
+        min-height: 100vh;
+        align-items: center; /* vertical center */
+        justify-content: flex-start; /* left align */
+        gap: 20px;
         padding: 20px;
+        background-color: #4338ca;
       }
-      /* form design  */
-      .form {
-        max-width: 100%;
-        width: 300px;
-        background: #fff;
-        padding: 15px;
+      .form-panel {
+        flex: 0 0 320px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 16px;
       }
-
-      .form-title {
+      .form-panel h2 {
+        margin: 0 0 12px;
         font-size: 18px;
-        font-weight: 700;
+        font-weight: 600;
+        color: #111827;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
         margin-bottom: 12px;
       }
-      .form input,
-      .form button {
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 8px;
+      label {
+        font-size: 12px;
+        color: #374151;
+      }
+      input,
+      textarea {
+        padding: 8px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
         font-size: 14px;
-      }
-
-      .field {
-        margin-bottom: 14px;
-      }
-
-      .field label {
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 6px;
-        color: #333;
-      }
-
-      .field input {
-        width: 100%;
-        padding: 10px 12px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-        transition:
-          border-color 0.2s,
-          box-shadow 0.2s;
-      }
-
-      .field input:focus {
-        outline: none;
-        border-color: #4f46e5;
-        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-      }
-
-      hr {
-        border: none;
-        border-top: 1px solid #eee;
-        margin: 18px 0;
-      }
-
-      .btn {
-        width: 80%;
-        padding: 12px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-
-      .btn.primary {
-        background: #4f46e5;
-        color: #fff;
-        border: none;
-      }
-
-      .btn.primary:hover {
-        background: #4338ca;
-      }
-
-      .btn.outline {
         background: #fff;
-        border: 1px solid #ccc;
-        color: #333;
       }
-
-      .btn.outline:hover {
-        background: #f9f9f9;
+      textarea {
+        resize: vertical;
+        min-height: 60px;
       }
-
-      .invoice {
-        position: relative;
-        width: 210mm;
-        height: 210mm;
+      .actions {
+        margin-top: 8px;
       }
-
-      .bill-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        z-index: 0;
-      }
-
-      .items-wrapper {
-        position: absolute;
-        left: 15mm;
-        top: 106mm;
-        width: 190mm;
-        z-index: 1;
-      }
-
-      table {
-        width: 195mm;
-        border-collapse: collapse;
-        font-size: 14pt;
-        margin-top: 5mm;
-      }
-
-      th,
-      td {
-        vertical-align: middle;
-      }
-
-      td {
-        padding: 2mm 1.9mm;
-        /* vertical-align: top; */
-      }
-
-      .serial-no {
-        position: absolute;
-        top: 49.5mm;
-        left: 23mm;
-        font-size: 12pt;
-        z-index: 1;
-      }
-      .col-no {
-        width: 15mm;
-        text-align: center;
-      }
-      .col-name {
-        width: 120mm;
-        text-align: left;
-      }
-      .col-mult {
-        width: 80mm;
-        text-align: center;
-      }
-      .col-total {
-        width: 60mm;
-        text-align: center;
-      }
-      .delete-btn {
-        width: 10mm;
-        text-align: right;
-        background: none;
-        border: none;
-        font-size: 14pt;
-        color: red;
+      button {
+        padding: 8px 12px;
+        border: 1px solid #111827;
+        background: #111827;
+        color: #fff;
+        border-radius: 4px;
+        font-size: 14px;
         cursor: pointer;
-        padding: 0;
-      }
-
-      .delete-btn:hover {
-        color: darkred;
-      }
-
-      .bill-date {
-        position: absolute;
-        top: 60mm;
-        right: 18mm;
-        font-size: 14pt;
-        z-index: 1;
-      }
-
-      .bill-to {
-        position: absolute;
-        top: 66.4mm;
-        left: 30mm;
-        width: 140mm;
-        font-size: 15pt;
-        z-index: 1;
-      }
-      .Remarks {
-        position: absolute;
-        top: 75mm;
-        left: 30mm;
-        width: 140mm;
-        font-size: 15pt;
-        z-index: 1;
-      }
-      .amount-words {
-        position: absolute;
-        bottom: 45mm;
-        left: 50mm;
-        width: 140mm;
-        font-size: 13pt;
-        z-index: 1;
-      }
-
-      .final-total {
-        position: absolute;
-        bottom: 59mm; /* move up/down by mm */
-        right: 30mm; /* align with amount column */
-        font-size: 15pt;
-        text-align: right;
-        font-weight: bold;
-        z-index: 1;
-        color: red;
-      }
-
-      @media print {
-        @page {
-          size: A4;
-          margin: 0;
-        }
-
-        html,
-        body {
-          width: 210mm;
-          height: 297mm;
-          margin: 0;
-          padding: 0;
-        }
-
-        body {
-          background: white;
-        }
-
-        .form {
-          display: none;
-        }
-
-        .invoice {
-          margin: 0 auto;
-          overflow: hidden;
-        }
-        .delete-btn {
-          visibility: hidden;
-        }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- FORM -->
-      <div class="form">
-        <div class="field">
-          <label>S.NO</label>
-          <input
-            type="text"
-            id="serial"
-            placeholder="Serial Number"
-            oninput="
-              document.getElementById('serialDisplay').textContent = this.value
-            "
-          />
-          <br />
-          <br />
-
-          <label>Customer Name</label>
-          <input
-            type="text"
-            id="billToInput"
-            placeholder="Enter customer name"
-            oninput="document.getElementById('billTo').textContent = this.value"
-          />
-        </div>
-        <div class="field">
-          <label>Remarks</label>
-          <input
-            id="Remarks"
-            placeholder="Remarks"
-            oninput="
-              document.getElementById('RemarksDisplay').textContent = this.value
-            "
-          />
-        </div>
-
-        <div class="field">
-          <label>Date</label>
-          <input type="date" id="dateInput" />
-        </div>
-
-        <hr />
-
-        <div class="field">
-          <label>Particulars</label>
-          <input id="name" placeholder="Particulars" />
-        </div>
-
-        <div class="field">
-          <label>Kilometers</label>
-          <input id="qty" type="number" placeholder="Kilometers" />
-        </div>
-
-        <div class="field">
-          <label>Fare/km</label>
-          <input id="price" type="number" placeholder="Price/km" />
-        </div>
-
-        <button class="btn primary" onclick="addItem()" id="addbtn">
-          Add Item
-        </button>
-        <button class="btn outline" onclick="window.print()">
-          Print / Save PDF
-        </button>
-      </div>
-
       <!-- INVOICE -->
       <div class="invoice">
         <svg
           width="210mm"
           height="297mm"
-          viewBox="0 0 210 297"
+          viewBox="10 40 210 140"
           xmlns="http://www.w3.org/2000/svg"
         >
           <!-- Background image -->
           <image href="format.jpg" x="0" y="0" width="60mm" height="55mm" />
+          <!-- <tbody></tbody> -->
+          <!-- Dynamic text fields positioned at exact coordinates -->
           <text
             id="serialDisplay"
             x="56"
@@ -370,207 +116,222 @@
             font-size="5"
             fill="red"
             font-weight="bold"
-          ></text>
-          <text
-            id="amountWords"
-            x="80"
-            y="17"
-            font-size="3.5"
-            fill="red"
-          ></text>
+          >
+            1500
+          </text>
+          <text id="amountWords" x="80" y="176" font-size="3.5" fill="red">
+            ten thousand only
+          </text>
+          <g id="lineItemsLayer"></g>
         </svg>
-        <div class="items-wrapper">
-          <table id="items">
-            <tbody>
-              <tr>
-                <th class="col-no">No.</th>
-                <th class="col-name">Particulars</th>
-                <th class="col-mult">Km × Fare/km</th>
-                <th class="col-total">Total</th>
-                <th class="col-delete">X</th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- TOTAL IN WORDS -->
-        <!-- <div class="amount-words" id="amountWords"></div> -->
-
-        <!-- GRAND TOTAL (RIGHT SIDE) -->
-        <!-- <div class="final-total" id="grandTotal"></div> -->
       </div>
+      <aside class="form-panel">
+        <h2>Invoice Details</h2>
+        <form id="invoiceForm">
+          <div class="form-group">
+            <label for="sno">S No</label>
+            <input
+              id="sno"
+              name="sno"
+              type="number"
+              inputmode="numeric"
+              oninput="
+                document.getElementById('serialDisplay').textContent =
+                  this.value
+              "
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              oninput="
+                document.getElementById('billTo').textContent = this.value
+              "
+            />
+          </div>
+          <div class="form-group">
+            <label for="remarks">Remarks</label>
+            <textarea
+              id="remarks"
+              name="remarks"
+              oninput="
+                document.getElementById('RemarksDisplay').textContent =
+                  this.value
+              "
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input
+              id="date"
+              name="date"
+              type="date"
+              oninput="
+                document.getElementById('billDate').textContent = this.value
+              "
+            />
+          </div>
+          <div class="form-group">
+            <label for="particulars">Particulars</label>
+            <input id="particulars" name="particulars" type="text" />
+          </div>
+          <div class="form-group">
+            <label for="km">KM</label>
+            <input
+              id="km"
+              name="km"
+              type="number"
+              step="0.1"
+              inputmode="decimal"
+              oninput="updateComputed()"
+            />
+          </div>
+          <div class="form-group">
+            <label for="fare_per_km">Fare/km</label>
+            <input
+              id="fare_per_km"
+              name="fare_per_km"
+              type="number"
+              step="0.01"
+              inputmode="decimal"
+              oninput="updateComputed()"
+            />
+          </div>
+          <div class="actions">
+            <button type="button" id="addLineBtn" onclick="addLine()">
+              ADD
+            </button>
+          </div>
+        </form>
+      </aside>
     </div>
-
     <script>
-      const dateInput = document.getElementById("dateInput");
-      const billDate = document.getElementById("billDate");
-      const grandTotalEl = document.getElementById("grandTotal");
-      const amountWordsEl = document.getElementById("amountWords");
-      const limitMsg = document.getElementById("limitMsg");
-      const svg = document.querySelector("svg");
+      // Map form fields to SVG text element IDs and handle computed values
+      const bindings = [
+        { input: "sno", svgId: "serialDisplay" },
+        { input: "date", svgId: "billDate" },
+        { input: "name", svgId: "billTo" },
+        { input: "remarks", svgId: "RemarksDisplay" },
+        { input: "km", svgId: "grandTotal", compute: true },
+        { input: "fare_per_km", svgId: "grandTotal", compute: true },
+      ];
 
-      let items = []; // store all invoice items
-      let grandTotal = 0;
-
-      // Column positions (mm units mapped to SVG coords)
-      const colX = { no: 40, name: 80, mult: 240, total: 260 };
-      const startY = 380; // first row Y
-      const rowGap = 10; // spacing between rows
-
-      // Date setup
-      const today = new Date().toISOString().split("T")[0];
-      dateInput.value = today;
-      billDate.textContent = new Date(today).toLocaleDateString();
-      dateInput.addEventListener("input", () => {
-        billDate.textContent = new Date(dateInput.value).toLocaleDateString();
-      });
-
-      // Auto uppercase for Customer Name
-      document.getElementById("billToInput").addEventListener("input", (e) => {
-        document.getElementById("billTo").textContent =
-          e.target.value.toUpperCase();
-      });
-
-      // Auto uppercase for Remarks
-      document.getElementById("Remarks").addEventListener("input", (e) => {
-        document.getElementById("RemarksDisplay").textContent =
-          e.target.value.toUpperCase();
-      });
-
-      // Add item
-      function addItem() {
-        const name = document.getElementById("name").value;
-        const qty = Number(document.getElementById("qty").value);
-        const price = Number(document.getElementById("price").value);
-        if (!name || qty <= 0 || price <= 0) {
-          alert(
-            "Please enter valid particulars, kilometers (>0), and fare/km (>0).",
-          );
-          return;
-        }
-
-        if (items.length >= 10) {
-          document.getElementById("addbtn").disabled = true;
-          limitMsg.textContent = "Maximum 10 entries reached.";
-          return;
-        }
-
-        const total = qty * price;
-        items.push({ name, qty, price, total });
-        grandTotal += total;
-
-        redrawItems();
-        updateTotals();
-      }
-
-      // Delete item by index
-      function deleteRow(index) {
-        grandTotal -= items[index].total;
-        items.splice(index, 1);
-
-        document.getElementById("addbtn").disabled = false;
-        limitMsg.textContent = "";
-
-        redrawItems();
-        updateTotals();
-      }
-
-      // Redraw all items in SVG
-      function redrawItems() {
-        // Remove old item texts
-        svg.querySelectorAll("text.item").forEach((el) => el.remove());
-
-        items.forEach((item, index) => {
-          const yPos = startY + index * rowGap;
-
-          // Serial number
-          addText(colX.no, yPos, index + 1, "item");
-
-          // Name
-          addText(colX.name, yPos, item.name, "item");
-
-          // Qty × Price
-          addText(colX.mult, yPos, `${item.qty} km × Rs.${item.price}`, "item");
-
-          // Total
-          addText(colX.total, yPos, item.total, "item");
-
-          // Delete button (optional: you can overlay HTML button or clickable SVG)
-          // For simplicity, we skip delete button in SVG and handle via UI
+      function formatNumber(n) {
+        if (isNaN(n) || n === null || n === "") return "";
+        return Number(n).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         });
       }
 
-      // Helper to add text to SVG
-      function addText(x, y, content, cls) {
-        const t = document.createElementNS(
-          "http://www.w3.org/2000/svg",
-          "text",
+      function numberToWordsSimple(n) {
+        if (n === "" || n === null || isNaN(n)) return "";
+        return `Amount: ${formatNumber(n)}`; // simple wording placeholder
+      }
+
+      function updateComputed() {
+        const km = parseFloat(document.getElementById("km")?.value || "");
+        const rate = parseFloat(
+          document.getElementById("fare_per_km")?.value || "",
         );
-        t.setAttribute("x", x);
-        t.setAttribute("y", y);
-        t.setAttribute("font-size", "3.5");
-        t.setAttribute("class", cls);
-        t.textContent = content;
-        svg.appendChild(t);
+        const total = isNaN(km) || isNaN(rate) ? "" : km * rate;
+        const gt = document.getElementById("grandTotal");
+        if (gt) gt.textContent = total === "" ? "" : formatNumber(total);
+        const aw = document.getElementById("amountWords");
+        if (aw) aw.textContent = total === "" ? "" : numberToWordsSimple(total);
       }
 
-      // Update totals
-      function updateTotals() {
-        grandTotalEl.textContent = ("Rs. " + grandTotal).toUpperCase();
-        amountWordsEl.textContent = (
-          numberToWords(grandTotal) + " rupees only"
-        ).toUpperCase();
+      const tableLayout = {
+        // Exact coordinates per your spec
+        startY: 90, // first row Y
+        rowGap: 7, // gap between rows
+        x: {
+          km: 118, // "<km> km"
+          times: 130, // "x"
+          fare: 133, // "₹<fare>"
+          total: 157, // "₹<total>"
+        },
+        fontSize: 4,
+        fill: "black",
+      };
+      let lineIndex = 0;
+
+      function addLine() {
+        const kmValStr = (document.getElementById("km")?.value || "").trim();
+        const fareValStr = (
+          document.getElementById("fare_per_km")?.value || ""
+        ).trim();
+        if (!kmValStr && !fareValStr) return;
+        const kmVal = parseFloat(kmValStr);
+        const fareVal = parseFloat(fareValStr);
+        const totalVal =
+          !isNaN(kmVal) && !isNaN(fareVal) ? kmVal * fareVal : NaN;
+
+        const layer = document.getElementById("lineItemsLayer");
+        if (!layer) return;
+
+        const y = tableLayout.startY + lineIndex * tableLayout.rowGap;
+        const ns = "http://www.w3.org/2000/svg";
+        const makeText = (x, text) => {
+          const t = document.createElementNS(ns, "text");
+          t.setAttribute("x", String(x));
+          t.setAttribute("y", String(y));
+          t.setAttribute("font-size", String(tableLayout.fontSize));
+          t.setAttribute("fill", tableLayout.fill);
+          t.textContent = text;
+          return t;
+        };
+
+        const kmText = isNaN(kmVal) ? "" : `${kmVal} km`;
+        const fareText = isNaN(fareVal) ? "" : `₹${fareVal}`;
+        const totalText = isNaN(totalVal) ? "" : `₹${totalVal}`;
+
+        layer.appendChild(makeText(tableLayout.x.km, kmText));
+        layer.appendChild(makeText(tableLayout.x.times, "x"));
+        layer.appendChild(makeText(tableLayout.x.fare, fareText));
+        layer.appendChild(makeText(tableLayout.x.total, totalText));
+
+        lineIndex += 1;
+        // clear numeric inputs and recompute
+        const k = document.getElementById("km");
+        if (k) k.value = "";
+        const f = document.getElementById("fare_per_km");
+        if (f) f.value = "";
+        updateComputed();
       }
 
-      // Number to words
-      function numberToWords(num) {
-        const a = [
-          "",
-          "one",
-          "two",
-          "three",
-          "four",
-          "five",
-          "six",
-          "seven",
-          "eight",
-          "nine",
-          "ten",
-          "eleven",
-          "twelve",
-          "thirteen",
-          "fourteen",
-          "fifteen",
-          "sixteen",
-          "seventeen",
-          "eighteen",
-          "nineteen",
-        ];
-        const b = [
-          "",
-          "",
-          "twenty",
-          "thirty",
-          "forty",
-          "fifty",
-          "sixty",
-          "seventy",
-          "eighty",
-          "ninety",
-        ];
-        if (num === 0) return "zero";
-        function inWords(n) {
-          if (n < 20) return a[n];
-          if (n < 100) return b[Math.floor(n / 10)] + " " + a[n % 10];
-          if (n < 1000)
-            return a[Math.floor(n / 100)] + " hundred " + inWords(n % 100);
-          if (n < 100000)
-            return (
-              inWords(Math.floor(n / 1000)) + " thousand " + inWords(n % 1000)
-            );
-          return "";
-        }
-        return inWords(num).trim();
+      function bind() {
+        // Wire up ADD button click -> add a line without submitting/reloading
+        const addBtn = document.getElementById("addLineBtn");
+        if (addBtn)
+          addBtn.addEventListener("click", (ev) => {
+            ev.preventDefault();
+            addLine();
+          });
+
+        bindings.forEach(({ input, svgId, compute }) => {
+          const el = document.getElementById(input);
+          const svgText = document.getElementById(svgId);
+          if (!el || !svgText) return;
+          const handler = () => {
+            if (compute) {
+              updateComputed();
+              return;
+            }
+            svgText.textContent = el.value;
+          };
+          el.addEventListener("input", handler);
+          handler();
+        });
+      }
+
+      if (document.readyState !== "loading") {
+        bind();
+      } else {
+        document.addEventListener("DOMContentLoaded", bind);
       }
     </script>
   </body>
