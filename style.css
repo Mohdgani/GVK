@@ -126,6 +126,10 @@ header nav a:hover {
   border-color: color-mix(in oklab, var(--primary) 80%, white 0%);
 }
 
+p {
+  font-weight: 600;
+}
+
 /* Sections */
 .section {
   padding: 80px 10%;
@@ -174,11 +178,11 @@ header nav a:hover {
 }
 
 /* Generic content layout (used by contact/products) */
-/* .container {
+.container {
   max-width: 980px;
   margin: 0 auto;
   padding: 0px 8% 80px;
-} */
+}
 
 .brand {
   display: grid;
