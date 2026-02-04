@@ -303,10 +303,14 @@
         // ctx.clearRect(50, 900, 700, 50);
         ctx.font = "18px Arial";
         ctx.fillStyle = "red";
-        ctx.fillText(grandTotal + "/-", 640, 797);
+        ctx.fillText(grandTotal + "/-", 470, 637);
         ctx.fillStyle = "black";
         ctx.font = "15px Arial";
-        ctx.fillText(numberToWords(grandTotal) + " Only", 170, 847);
+        ctx.fillText(
+          (numberToWords(grandTotal) + " Only").toUpperCase(),
+          130,
+          676,
+        );
       }
 
       function addItem() {
