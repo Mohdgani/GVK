@@ -3,335 +3,454 @@
   <head>
     <meta charset="UTF-8" />
     <title>Invoice Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        margin: 0;
-      }
-      h2 {
-        margin-bottom: 10px;
-      }
-      .container {
-        display: flex;
-        width: 100%;
-        max-width: none;
+      * {
         box-sizing: border-box;
-        min-height: 100vh;
-        align-items: center; /* vertical center */
-        justify-content: flex-start; /* left align */
-        gap: 20px;
-        padding: 20px;
-        background-color: #4338ca;
+        margin: 0;
+        padding: 0;
       }
-      .form-panel {
-        flex: 0 0 320px;
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 8px;
-        padding: 16px;
-      }
-      .form-panel h2 {
-        margin: 0 0 12px;
-        font-size: 18px;
-        font-weight: 600;
-        color: #111827;
-      }
-      .form-group {
+      body {
         display: flex;
-        flex-direction: column;
-        gap: 6px;
+        font-family: Arial, sans-serif;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+      }
+
+      /* form design  */
+      .form {
+        width: 300px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-title {
+        font-size: 18px;
+        font-weight: 700;
         margin-bottom: 12px;
       }
-      label {
-        font-size: 12px;
-        color: #374151;
-      }
-      input,
-      textarea {
-        padding: 8px 10px;
-        border: 1px solid #d1d5db;
-        border-radius: 4px;
+      .form input,
+      .form button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
         font-size: 14px;
-        background: #fff;
       }
-      textarea {
-        resize: vertical;
-        min-height: 60px;
+
+      .field {
+        margin-bottom: 14px;
       }
-      .actions {
-        margin-top: 8px;
+
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #333;
       }
-      button {
-        padding: 8px 12px;
-        border: 1px solid #111827;
-        background: #111827;
-        color: #fff;
-        border-radius: 4px;
+
+      .field input {
+        width: 88%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
         font-size: 14px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .field input:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 18px 0;
+      }
+
+      .btn {
+        width: 80%;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
         cursor: pointer;
+        margin-top: 10px;
       }
+
+      .btn.primary {
+        background: #4f46e5;
+        color: #fff;
+        border: none;
+      }
+
+      .btn.primary:hover {
+        background: #4338ca;
+      }
+
+      .btn.outline {
+        background: #fff;
+        border: 1px solid #ccc;
+        color: #333;
+      }
+
+      .btn.outline:hover {
+        background: #f9f9f9;
+      }
+
+      .container {
+        display: flex;
+        gap: 20px;
+        /* align-items: flex-start; */
+      }
+
+      /* Delete list sits next to the form */
+      .delete-list {
+        width: 200px;
+        border-right: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 25%;
+        margin-left: -80px; /* move slightly to the left */
+        align-items: flex-start;
+        color: white;
+      }
+
+      /* List styling */
+      #itemsList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #itemsList li {
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #itemsList button {
+        margin-left: 10px;
+      }
+
+      .invoice {
+      }
+      /* @media print {
+        @page {
+          size: A4;
+          margin: 0;
+        }
+
+        html,
+        body {
+          width: 210mm;
+          height: 297mm;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background: white;
+        }
+
+        .form {
+          display: none;
+        }
+
+        .invoice {
+          margin: 0 auto;
+          overflow: hidden;
+        }
+        .delete-btn {
+          visibility: hidden;
+        }
+      } */
     </style>
   </head>
   <body>
     <div class="container">
-      <!-- INVOICE -->
-      <div class="invoice">
-        <svg
-          width="210mm"
-          height="297mm"
-          viewBox="10 40 210 140"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <!-- Background image -->
-          <image href="format.jpg" x="0" y="0" width="60mm" height="55mm" />
-          <!-- <tbody></tbody> -->
-          <!-- Dynamic text fields positioned at exact coordinates -->
-          <text
-            id="serialDisplay"
-            x="56"
-            y="37.5"
-            font-size="3.5"
-            fill="black"
-          ></text>
-          <text
-            id="billDate"
-            x="163"
-            y="45"
-            font-size="3.5"
-            fill="black"
-          ></text>
-          <text id="billTo" x="60" y="49.7" font-size="3.8" fill="black"></text>
-          <text
-            id="RemarksDisplay"
-            x="60"
-            y="55.5"
-            font-size="3.8"
-            fill="black"
-          ></text>
-          <text
-            id="grandTotal"
-            x="153"
-            y="166"
-            font-size="5"
-            fill="red"
-            font-weight="bold"
-          >
-            1500
-          </text>
-          <text id="amountWords" x="80" y="176" font-size="3.5" fill="red">
-            ten thousand only
-          </text>
-          <g id="lineItemsLayer"></g>
-        </svg>
+      <!-- FORM -->
+      <div class="form">
+        <div class="field">
+          <label>S.NO</label>
+          <input
+            type="text"
+            id="serial"
+            placeholder="Serial Number"
+            maxlength="10"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          />
+        </div>
+
+        <div class="field">
+          <label>Customer Name</label>
+          <input
+            type="text"
+            id="billToInput"
+            placeholder="Enter customer name"
+            maxlength="45"
+          />
+        </div>
+
+        <div class="field">
+          <label>Remarks</label>
+          <input id="Remarks" placeholder="Remarks" maxlength="48" />
+        </div>
+
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="dateInput" />
+        </div>
+
+        <hr />
+
+        <div class="field">
+          <label>Particulars</label>
+          <input id="name" placeholder="Particulars" />
+        </div>
+
+        <div class="field">
+          <label>Kilometers</label>
+          <input id="qty" type="number" placeholder="Kilometers" />
+        </div>
+
+        <div class="field">
+          <label>Fare/km</label>
+          <input id="price" type="number" placeholder="Price/km" />
+        </div>
+
+        <button class="btn primary" onclick="addItem()" id="addbtn">
+          Add Item
+        </button>
+        <button class="btn outline" onclick="downloadPDF()">Save PDF</button>
+        <!-- <p id="limitMsg" style="color: red"></p> -->
       </div>
-      <aside class="form-panel">
-        <h2>Invoice Details</h2>
-        <form id="invoiceForm">
-          <div class="form-group">
-            <label for="sno">S No</label>
-            <input
-              id="sno"
-              name="sno"
-              type="number"
-              inputmode="numeric"
-              oninput="
-                document.getElementById('serialDisplay').textContent =
-                  this.value
-              "
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              oninput="
-                document.getElementById('billTo').textContent = this.value
-              "
-            />
-          </div>
-          <div class="form-group">
-            <label for="remarks">Remarks</label>
-            <textarea
-              id="remarks"
-              name="remarks"
-              oninput="
-                document.getElementById('RemarksDisplay').textContent =
-                  this.value
-              "
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="date">Date</label>
-            <input
-              id="date"
-              name="date"
-              type="date"
-              oninput="
-                document.getElementById('billDate').textContent = this.value
-              "
-            />
-          </div>
-          <div class="form-group">
-            <label for="particulars">Particulars</label>
-            <input id="particulars" name="particulars" type="text" />
-          </div>
-          <div class="form-group">
-            <label for="km">KM</label>
-            <input
-              id="km"
-              name="km"
-              type="number"
-              step="0.1"
-              inputmode="decimal"
-              oninput="updateComputed()"
-            />
-          </div>
-          <div class="form-group">
-            <label for="fare_per_km">Fare/km</label>
-            <input
-              id="fare_per_km"
-              name="fare_per_km"
-              type="number"
-              step="0.01"
-              inputmode="decimal"
-              oninput="updateComputed()"
-            />
-          </div>
-          <div class="actions">
-            <button type="button" id="addLineBtn" onclick="addLine()">
-              ADD
-            </button>
-          </div>
-        </form>
-      </aside>
+
+      <!-- INVOICE CANVAS -->
+      <div class="invoice">
+        <canvas id="invoiceCanvas" width="600" height="800"></canvas>
+      </div>
+      <div class="delete-list">
+        <ul id="itemsList"></ul>
+      </div>
     </div>
+
     <script>
-      // Map form fields to SVG text element IDs and handle computed values
-      const bindings = [
-        { input: "sno", svgId: "serialDisplay" },
-        { input: "date", svgId: "billDate" },
-        { input: "name", svgId: "billTo" },
-        { input: "remarks", svgId: "RemarksDisplay" },
-        { input: "km", svgId: "grandTotal", compute: true },
-        { input: "fare_per_km", svgId: "grandTotal", compute: true },
-      ];
+      const canvas = document.getElementById("invoiceCanvas");
+      const ctx = canvas.getContext("2d");
 
-      function formatNumber(n) {
-        if (isNaN(n) || n === null || n === "") return "";
-        return Number(n).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-      }
+      let items = []; // store all rows
+      let grandTotal = 0;
 
-      function numberToWordsSimple(n) {
-        if (n === "" || n === null || isNaN(n)) return "";
-        return `Amount: ${formatNumber(n)}`; // simple wording placeholder
-      }
+      // Background image
 
-      function updateComputed() {
-        const km = parseFloat(document.getElementById("km")?.value || "");
-        const rate = parseFloat(
-          document.getElementById("fare_per_km")?.value || "",
-        );
-        const total = isNaN(km) || isNaN(rate) ? "" : km * rate;
-        const gt = document.getElementById("grandTotal");
-        if (gt) gt.textContent = total === "" ? "" : formatNumber(total);
-        const aw = document.getElementById("amountWords");
-        if (aw) aw.textContent = total === "" ? "" : numberToWordsSimple(total);
-      }
-
-      const tableLayout = {
-        // Exact coordinates per your spec
-        startY: 90, // first row Y
-        rowGap: 7, // gap between rows
-        x: {
-          km: 118, // "<km> km"
-          times: 130, // "x"
-          fare: 133, // "₹<fare>"
-          total: 157, // "₹<total>"
-        },
-        fontSize: 4,
-        fill: "black",
+      let invoiceBg = new Image();
+      invoiceBg.src = "format.jpg"; // your invoice background image
+      invoiceBg.onload = () => {
+        drawHeader(); // only draw header after background is loaded
       };
-      let lineIndex = 0;
 
-      function addLine() {
-        const kmValStr = (document.getElementById("km")?.value || "").trim();
-        const fareValStr = (
-          document.getElementById("fare_per_km")?.value || ""
-        ).trim();
-        if (!kmValStr && !fareValStr) return;
-        const kmVal = parseFloat(kmValStr);
-        const fareVal = parseFloat(fareValStr);
-        const totalVal =
-          !isNaN(kmVal) && !isNaN(fareVal) ? kmVal * fareVal : NaN;
+      function drawHeader() {
+        // clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        const layer = document.getElementById("lineItemsLayer");
-        if (!layer) return;
+        // draw background image
+        ctx.drawImage(invoiceBg, 0, 0, canvas.width, canvas.height);
 
-        const y = tableLayout.startY + lineIndex * tableLayout.rowGap;
-        const ns = "http://www.w3.org/2000/svg";
-        const makeText = (x, text) => {
-          const t = document.createElementNS(ns, "text");
-          t.setAttribute("x", String(x));
-          t.setAttribute("y", String(y));
-          t.setAttribute("font-size", String(tableLayout.fontSize));
-          t.setAttribute("fill", tableLayout.fill);
-          t.textContent = text;
-          return t;
-        };
+        // overlay text
+        ctx.font = "16px Arial";
 
-        const kmText = isNaN(kmVal) ? "" : `${kmVal} km`;
-        const fareText = isNaN(fareVal) ? "" : `₹${fareVal}`;
-        const totalText = isNaN(totalVal) ? "" : `₹${totalVal}`;
+        ctx.font = "12px Arial";
+        ctx.fillText(document.getElementById("serial").value, 68, 142);
+        const rawDate = document.getElementById("dateInput").value;
+        if (rawDate) {
+          const formattedDate = new Date(rawDate).toLocaleDateString("en-GB");
+          ctx.fillText(formattedDate, 493, 173.4);
+        }
+        ctx.fillText(
+          document.getElementById("billToInput").value.toUpperCase(),
+          78,
+          192,
+        );
+        ctx.fillText(
+          document.getElementById("Remarks").value.toUpperCase(),
+          78,
+          214,
+        );
 
-        layer.appendChild(makeText(tableLayout.x.km, kmText));
-        layer.appendChild(makeText(tableLayout.x.times, "x"));
-        layer.appendChild(makeText(tableLayout.x.fare, fareText));
-        layer.appendChild(makeText(tableLayout.x.total, totalText));
+        // ctx.fillText(100, 380);
 
-        lineIndex += 1;
-        // clear numeric inputs and recompute
-        const k = document.getElementById("km");
-        if (k) k.value = "";
-        const f = document.getElementById("fare_per_km");
-        if (f) f.value = "";
-        updateComputed();
+        // Draw items
+        grandTotal = 0;
+        items.forEach((item, index) => {
+          const y = 300 + index * 30;
+          ctx.fillText(index + 1, 60, y); // ✅ index always matches
+          ctx.fillText(item.name, 100, y);
+          ctx.fillText(`${item.qty} km × Rs.${item.price}`, 330, y);
+          ctx.fillText(item.total, 480, y);
+          grandTotal += item.total;
+        });
+
+        // Totals
+        // ctx.clearRect(50, 900, 700, 50);
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "red";
+        ctx.fillText(grandTotal + "/-", 640, 797);
+        ctx.fillStyle = "black";
+        ctx.font = "15px Arial";
+        ctx.fillText(numberToWords(grandTotal) + " Only", 170, 847);
       }
 
-      function bind() {
-        // Wire up ADD button click -> add a line without submitting/reloading
-        const addBtn = document.getElementById("addLineBtn");
-        if (addBtn)
-          addBtn.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            addLine();
-          });
+      function addItem() {
+        // Restrict to 10 rows
+        if (items.length >= 10) {
+          document.getElementById("addbtn").disabled = true;
+          return;
+        }
 
-        bindings.forEach(({ input, svgId, compute }) => {
-          const el = document.getElementById(input);
-          const svgText = document.getElementById(svgId);
-          if (!el || !svgText) return;
-          const handler = () => {
-            if (compute) {
-              updateComputed();
-              return;
-            }
-            svgText.textContent = el.value;
-          };
-          el.addEventListener("input", handler);
-          handler();
+        const name = document.getElementById("name").value;
+        const qty = Number(document.getElementById("qty").value);
+        const price = Number(document.getElementById("price").value);
+
+        if (!name || qty <= 0 || price <= 0) {
+          alert(
+            "Please enter valid particulars, kilometers (>0), and fare/km (>0).",
+          );
+          return;
+        }
+
+        const total = qty * price;
+        items.push({ name, qty, price, total }); // ✅ store in array
+
+        updateItemsList();
+        drawHeader();
+
+        if (items.length >= 10) {
+          document.getElementById("addbtn").disabled = true;
+        }
+      }
+
+      function updateItemsList() {
+        const list = document.getElementById("itemsList");
+        list.innerHTML = "";
+        items.forEach((item, index) => {
+          const li = document.createElement("li");
+          // li.textContent = `${index + 1}. ${item.name} - ${item.qty} km × Rs.${item.price} = ${item.total}`;
+
+          const btn = document.createElement("button");
+          btn.textContent = "❌";
+          btn.style.marginLeft = "10px";
+          btn.onclick = () => deleteItem(index);
+
+          li.appendChild(btn);
+          list.appendChild(li);
         });
       }
 
-      if (document.readyState !== "loading") {
-        bind();
-      } else {
-        document.addEventListener("DOMContentLoaded", bind);
+      function deleteItem(index) {
+        items.splice(index, 1); // remove item
+        updateItemsList();
+        drawHeader(); // redraw canvas with updated items
+
+        if (items.length < 10) {
+          document.getElementById("addbtn").disabled = false;
+        }
+      }
+
+      function downloadPDF() {
+        const { jsPDF } = window.jspdf; // destructure from window.jspdf
+        const pdf = new jsPDF("p", "pt", "a4");
+        const imgData = canvas.toDataURL("image/png");
+        pdf.addImage(imgData, "PNG", 0, 0, 595, 842);
+        pdf.save("invoice.pdf");
+      }
+
+      // Initialize header on load
+      window.onload = () => {
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("dateInput").value = today;
+        drawHeader();
+      };
+
+      // Redraw header when inputs change
+      document.getElementById("serial").addEventListener("input", drawHeader);
+      document
+        .getElementById("billToInput")
+        .addEventListener("input", drawHeader);
+      document.getElementById("Remarks").addEventListener("input", drawHeader);
+      document
+        .getElementById("dateInput")
+        .addEventListener("input", drawHeader);
+
+      //amount in words
+
+      function numberToWords(num) {
+        const a = [
+          "",
+          "One",
+          "Two",
+          "Three",
+          "Four",
+          "Five",
+          "Six",
+          "Seven",
+          "Eight",
+          "Nine",
+          "Ten",
+          "Eleven",
+          "Twelve",
+          "Thirteen",
+          "Fourteen",
+          "Fifteen",
+          "Sixteen",
+          "Seventeen",
+          "Eighteen",
+          "Nineteen",
+        ];
+        const b = [
+          "",
+          "",
+          "Twenty",
+          "Thirty",
+          "Forty",
+          "Fifty",
+          "Sixty",
+          "Seventy",
+          "Eighty",
+          "Ninety",
+        ];
+
+        if ((num = num.toString()).length > 9) return "Overflow";
+        let n = ("000000000" + num)
+          .substr(-9)
+          .match(/^(\d{2})(\d{2})(\d{2})(\d{3})$/);
+        if (!n) return;
+        let str = "";
+        str +=
+          n[1] != 0
+            ? (a[Number(n[1])] || b[n[1][0]] + " " + a[n[1][1]]) + " Crore "
+            : "";
+        str +=
+          n[2] != 0
+            ? (a[Number(n[2])] || b[n[2][0]] + " " + a[n[2][1]]) + " Lakh "
+            : "";
+        str +=
+          n[3] != 0
+            ? (a[Number(n[3])] || b[n[3][0]] + " " + a[n[3][1]]) + " Thousand "
+            : "";
+        str +=
+          n[4] != 0
+            ? (a[Number(n[4])] || b[n[4][0]] + " " + a[n[4][1]]) + " "
+            : "";
+        return str.trim();
       }
     </script>
   </body>

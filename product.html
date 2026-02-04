@@ -30,25 +30,17 @@
     <!-- Tabs navigation -->
     <div class="tabs">
       <button id="tab-one" class="tab-btn active" onclick="showTab('pageone')">
-        S.V.Bro's Tours&Travels
+        S.V.Bro's
       </button>
       <button id="tab-two" class="tab-btn" onclick="showTab('pagetwo')">
-        Stepup Academy Trichy
+        Stepup Academy
       </button>
     </div>
 
     <!-- Domestic gallery -->
-    <section
-      id="page-one"
-      class="one"
-      aria-label="S.V.Bro's Tours&Travels"
-    ></section>
+    <section id="page-one" class="one" aria-label="S.V.Bro's"></section>
 
-    <section
-      id="page-two"
-      class="two"
-      aria-label="Stepup Academy Trichy"
-    ></section>
+    <section id="page-two" class="two" aria-label="Stepup Academy"></section>
 
     <footer>© 2025 GVKALAIVANI ENTERPRISES. All rights reserved.</footer>
 
@@ -58,12 +50,9 @@
         const ind = document.getElementById("page-two");
 
         if (which === "pageone") {
-          // Load format.html into page-one
-          fetch("format.html")
-            .then((response) => response.text())
-            .then((html) => {
-              dom.innerHTML = html;
-            });
+          // Use an iframe so the embedded page loads its scripts and images correctly
+          dom.innerHTML =
+            '<iframe src="format.html" style="width: 100%; min-height: 850px; border: 0;"></iframe>';
 
           dom.style.display = "block";
           ind.style.display = "none";

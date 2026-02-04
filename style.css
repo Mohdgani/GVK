@@ -174,11 +174,12 @@ header nav a:hover {
 }
 
 /* Generic content layout (used by contact/products) */
-.container {
+/* .container {
   max-width: 980px;
   margin: 0 auto;
   padding: 0px 8% 80px;
-}
+} */
+
 .brand {
   display: grid;
   color: var(--primary);
