@@ -115,9 +115,8 @@
       /* Delete list sits next to the form */
       .delete-list {
         width: 200px;
-        border-right: 1px solid #ccc;
         padding: 20px;
-        margin-top: 25%;
+        margin-top: 25.5%;
         margin-left: -80px; /* move slightly to the left */
         align-items: flex-start;
         color: white;
@@ -141,9 +140,25 @@
         margin-left: 10px;
       }
 
-      .invoice {
+      /* Style the select directly */
+      #unit {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        transition: border-color 0.3s ease;
+        margin-bottom: 15px;
       }
-      /* @media print {
+
+      /* Focus effect */
+      #unit:focus {
+        border-color: blue;
+        outline: none;
+        background-color: #fff;
+      }
+
+      @media print {
         @page {
           size: A4;
           margin: 0;
@@ -169,10 +184,7 @@
           margin: 0 auto;
           overflow: hidden;
         }
-        .delete-btn {
-          visibility: hidden;
-        }
-      } */
+      }
     </style>
   </head>
   <body>
@@ -211,6 +223,7 @@
         </div>
 
         <hr />
+        <hr />
 
         <div class="field">
           <label>Particulars</label>
@@ -218,25 +231,42 @@
         </div>
 
         <div class="field">
-          <label>Kilometers</label>
-          <input id="qty" type="number" placeholder="Kilometers" />
+          <label>Unit</label>
+          <select id="unit" onchange="toggleInputs()">
+            <option value="km">Kilometers</option>
+            <option value="trip">Toll/Driver</option>
+          </select>
         </div>
 
-        <div class="field">
-          <label>Fare/km</label>
-          <input id="price" type="number" placeholder="Price/km" />
+        <div id="kmInputs">
+          <div class="field">
+            <label>Kilometers</label>
+            <input id="qty" type="number" placeholder="Kilometers" />
+          </div>
+          <div class="field">
+            <label>Fare/km</label>
+            <input id="price" type="number" placeholder="Fare per km" />
+          </div>
+        </div>
+
+        <div id="singleInput" style="display: none">
+          <div class="field">
+            <label>Amount</label>
+            <input id="amount" type="number" placeholder="Enter amount" />
+          </div>
         </div>
 
         <button class="btn primary" onclick="addItem()" id="addbtn">
           Add Item
         </button>
         <button class="btn outline" onclick="downloadPDF()">Save PDF</button>
+        <button class="btn outline" onclick="printInvoice()">Print</button>
         <!-- <p id="limitMsg" style="color: red"></p> -->
       </div>
 
       <!-- INVOICE CANVAS -->
       <div class="invoice">
-        <canvas id="invoiceCanvas" width="600" height="800"></canvas>
+        <canvas id="invoiceCanvas" width="615" height="830"></canvas>
       </div>
       <div class="delete-list">
         <ul id="itemsList"></ul>
@@ -266,24 +296,26 @@
         ctx.drawImage(invoiceBg, 0, 0, canvas.width, canvas.height);
 
         // overlay text
-        ctx.font = "16px Arial";
 
-        ctx.font = "12px Arial";
-        ctx.fillText(document.getElementById("serial").value, 68, 142);
+        ctx.font = "15px Arial";
+
+        ctx.fillText(document.getElementById("serial").value, 68, 148);
+        ctx.font = "13px Arial";
         const rawDate = document.getElementById("dateInput").value;
         if (rawDate) {
           const formattedDate = new Date(rawDate).toLocaleDateString("en-GB");
-          ctx.fillText(formattedDate, 493, 173.4);
+          ctx.fillText(formattedDate, 505, 180);
         }
+        ctx.font = "15px Arial";
         ctx.fillText(
           document.getElementById("billToInput").value.toUpperCase(),
           78,
-          192,
+          200,
         );
         ctx.fillText(
           document.getElementById("Remarks").value.toUpperCase(),
           78,
-          214,
+          223,
         );
 
         // ctx.fillText(100, 380);
@@ -291,11 +323,19 @@
         // Draw items
         grandTotal = 0;
         items.forEach((item, index) => {
-          const y = 300 + index * 30;
-          ctx.fillText(index + 1, 60, y); // ✅ index always matches
+          ctx.textAlign = "left";
+          const y = 310 + index * 30;
+          ctx.textAlign = "right";
+          ctx.fillText(index + 1, 62, y); // ✅ index always matches
+          ctx.textAlign = "left";
           ctx.fillText(item.name, 100, y);
-          ctx.fillText(`${item.qty} km × Rs.${item.price}`, 330, y);
-          ctx.fillText(item.total, 480, y);
+          if (item.unit === "km") {
+            ctx.fillText(`${item.qty} km × Rs.${item.price}`, 320, y);
+          } else {
+            ctx.fillText(`Rs.${item.price}`, 320, y); // no ×1 for trip/toll/other
+          }
+          ctx.textAlign = "right";
+          ctx.fillText(item.total, 520, y);
           grandTotal += item.total;
         });
 
@@ -303,43 +343,81 @@
         // ctx.clearRect(50, 900, 700, 50);
         ctx.font = "18px Arial";
         ctx.fillStyle = "red";
-        ctx.fillText(grandTotal + "/-", 470, 637);
+        if (grandTotal > 0) {
+          ctx.fillText(grandTotal, 520, 664);
+        }
         ctx.fillStyle = "black";
         ctx.font = "15px Arial";
-        ctx.fillText(
-          (numberToWords(grandTotal) + " Only").toUpperCase(),
-          130,
-          676,
-        );
+        ctx.textAlign = "left"; // align text to the right edge
+        if (grandTotal > 0) {
+          ctx.fillText(
+            (numberToWords(grandTotal) + " Only").toUpperCase(),
+            130,
+            701,
+          );
+        }
+        // ctx.textAlign = "";
+      }
+
+      function toggleInputs() {
+        const unit = document.getElementById("unit").value;
+        const kmInputs = document.getElementById("kmInputs");
+        const singleInput = document.getElementById("singleInput");
+
+        if (unit === "km") {
+          kmInputs.style.display = "block";
+          singleInput.style.display = "none";
+        } else {
+          kmInputs.style.display = "none";
+          singleInput.style.display = "block";
+        }
       }
 
       function addItem() {
-        // Restrict to 10 rows
         if (items.length >= 10) {
           document.getElementById("addbtn").disabled = true;
           return;
         }
 
         const name = document.getElementById("name").value;
-        const qty = Number(document.getElementById("qty").value);
-        const price = Number(document.getElementById("price").value);
+        const unit = document.getElementById("unit").value;
 
-        if (!name || qty <= 0 || price <= 0) {
-          alert(
-            "Please enter valid particulars, kilometers (>0), and fare/km (>0).",
-          );
-          return;
+        let qty, price, total;
+
+        if (unit === "km") {
+          qty = Number(document.getElementById("qty").value);
+          price = Number(document.getElementById("price").value);
+
+          if (!name || qty <= 0 || price <= 0) {
+            alert(
+              "Please enter valid particulars, kilometers (>0), and fare/km (>0).",
+            );
+            return;
+          }
+
+          total = qty * price;
+        } else {
+          qty = 1; // always one unit for trip/toll/other
+          price = Number(document.getElementById("amount").value);
+
+          if (!name || price <= 0) {
+            alert("Please enter valid particulars and amount (>0).");
+            return;
+          }
+
+          total = price;
         }
 
-        const total = qty * price;
-        items.push({ name, qty, price, total }); // ✅ store in array
+        items.push({ name, qty, price, unit, total });
 
         updateItemsList();
         drawHeader();
 
-        if (items.length >= 10) {
-          document.getElementById("addbtn").disabled = true;
-        }
+        // Clear inputs
+        // document.getElementById("name").value = "";
+        // document.getElementById("qty").value = "";
+        // document.getElementById("price").value = "";
+        // document.getElementById("amount").value = "";
       }
 
       function updateItemsList() {
@@ -376,7 +454,9 @@
         pdf.addImage(imgData, "PNG", 0, 0, 595, 842);
         pdf.save("invoice.pdf");
       }
-
+      function printInvoice() {
+        window.print();
+      }
       // Initialize header on load
       window.onload = () => {
         const today = new Date().toISOString().split("T")[0];
@@ -397,6 +477,8 @@
       //amount in words
 
       function numberToWords(num) {
+        if (num === 0) return "Zero";
+
         const a = [
           "",
           "One",
@@ -432,28 +514,33 @@
           "Ninety",
         ];
 
-        if ((num = num.toString()).length > 9) return "Overflow";
-        let n = ("000000000" + num)
-          .substr(-9)
-          .match(/^(\d{2})(\d{2})(\d{2})(\d{3})$/);
-        if (!n) return;
+        function twoDigits(n) {
+          return n < 20
+            ? a[n]
+            : b[Math.floor(n / 10)] + (n % 10 ? " " + a[n % 10] : "");
+        }
+
+        function threeDigits(n) {
+          let str = "";
+          if (n > 99) {
+            str += a[Math.floor(n / 100)] + " Hundred ";
+            n = n % 100;
+          }
+          if (n > 0) str += twoDigits(n);
+          return str.trim();
+        }
+
         let str = "";
-        str +=
-          n[1] != 0
-            ? (a[Number(n[1])] || b[n[1][0]] + " " + a[n[1][1]]) + " Crore "
-            : "";
-        str +=
-          n[2] != 0
-            ? (a[Number(n[2])] || b[n[2][0]] + " " + a[n[2][1]]) + " Lakh "
-            : "";
-        str +=
-          n[3] != 0
-            ? (a[Number(n[3])] || b[n[3][0]] + " " + a[n[3][1]]) + " Thousand "
-            : "";
-        str +=
-          n[4] != 0
-            ? (a[Number(n[4])] || b[n[4][0]] + " " + a[n[4][1]]) + " "
-            : "";
+        const crore = Math.floor(num / 10000000);
+        const lakh = Math.floor((num % 10000000) / 100000);
+        const thousand = Math.floor((num % 100000) / 1000);
+        const hundred = num % 1000;
+
+        if (crore) str += threeDigits(crore) + " Crore ";
+        if (lakh) str += threeDigits(lakh) + " Lakh ";
+        if (thousand) str += threeDigits(thousand) + " Thousand ";
+        if (hundred) str += threeDigits(hundred);
+
         return str.trim();
       }
     </script>
